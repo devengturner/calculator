@@ -4,7 +4,6 @@ let firstNumber;
 let operator;
 let secondNumber;
 let displayText = "";
-let runningTotal;
 
 const text = document.querySelector(".text");
 
@@ -19,6 +18,14 @@ const sevenButton = document.querySelector(".btn--7");
 const eightButton = document.querySelector(".btn--8");
 const nineButton = document.querySelector(".btn--9");
 const clearButton = document.querySelector(".btn--ac");
+const addButton = document.querySelector(".btn--plus");
+const minusButton = document.querySelector(".btn--minus");
+const multiplyButton = document.querySelector(".btn--multiply");
+const divideButton = document.querySelector(".btn--divide");
+const decButton = document.querySelector(".btn--dec");
+const equalsButton = document.querySelector(".btn--equal");
+const posNegButton = document.querySelector(".btn--plusminus");
+const percentButton = document.querySelector(".btn--percent");
 
 zeroButton.addEventListener("click", function () {
   displayText = displayText + "0";
@@ -61,9 +68,99 @@ nineButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 clearButton.addEventListener("click", function () {
-  runningTotal = 0;
+  firstNumber = undefined;
+  operator = undefined;
+  secondNumber = undefined;
   displayText = "";
-  text.textContent = runningTotal;
+  text.textContent = "";
+});
+equalsButton.addEventListener("click", function () {
+  secondNumber = Number(displayText);
+  displayText = operate(operator, firstNumber, secondNumber);
+  text.textContent = displayText;
+  firstNumber = Number(displayText);
+  displayText = "";
+});
+decButton.addEventListener("click", function () {
+  displayText = displayText + ".";
+  text.textContent = displayText;
+});
+addButton.addEventListener("click", function () {
+  if (firstNumber == undefined) {
+    firstNumber = Number(displayText);
+    displayText = "";
+    operator = "+";
+  } else {
+    secondNumber = Number(displayText);
+
+    displayText = operate(operator, firstNumber, secondNumber);
+    text.textContent = displayText;
+
+    firstNumber = Number(displayText);
+    operator = "+";
+    displayText = "";
+  }
+});
+minusButton.addEventListener("click", function () {
+  if (firstNumber == undefined) {
+    firstNumber = Number(displayText);
+    displayText = "";
+    operator = "-";
+  } else {
+    secondNumber = Number(displayText);
+
+    displayText = operate(operator, firstNumber, secondNumber);
+    text.textContent = displayText;
+
+    firstNumber = Number(displayText);
+    operator = "-";
+    displayText = "";
+  }
+});
+multiplyButton.addEventListener("click", function () {
+  if (firstNumber == undefined) {
+    firstNumber = Number(displayText);
+    displayText = "";
+    operator = "*";
+  } else {
+    secondNumber = Number(displayText);
+
+    displayText = operate(operator, firstNumber, secondNumber);
+    text.textContent = displayText;
+
+    firstNumber = Number(displayText);
+    operator = "*";
+    displayText = "";
+  }
+});
+divideButton.addEventListener("click", function () {
+  if (firstNumber == undefined) {
+    firstNumber = Number(displayText);
+    displayText = "";
+    operator = "/";
+  } else {
+    secondNumber = Number(displayText);
+
+    displayText = operate(operator, firstNumber, secondNumber);
+    text.textContent = displayText;
+
+    firstNumber = Number(displayText);
+    operator = "/";
+    displayText = "";
+  }
+});
+posNegButton.addEventListener("click", function () {
+  if (displayText.charAt(0) == "-") {
+    displayText = displayText.substring(1);
+    text.textContent = displayText;
+  } else {
+    displayText = "-" + displayText;
+    text.textContent = displayText;
+  }
+});
+percentButton.addEventListener("click", function () {
+  displayText = displayText / 100;
+  text.textContent = displayText;
 });
 
 function add(a, b) {
@@ -97,3 +194,4 @@ function operate(sign, a, b) {
       return null;
   }
 }
+console.log(operator);
