@@ -4,6 +4,7 @@ let firstNumber;
 let operator;
 let secondNumber;
 let displayText = "";
+let runningTotal = 0;
 
 const text = document.querySelector(".text");
 
@@ -77,9 +78,11 @@ clearButton.addEventListener("click", function () {
 equalsButton.addEventListener("click", function () {
   secondNumber = Number(displayText);
   displayText = operate(operator, firstNumber, secondNumber);
+  runningTotal = operate(operator, firstNumber, secondNumber);
   text.textContent = displayText;
   firstNumber = Number(displayText);
   displayText = "";
+  operator = "+";
 });
 decButton.addEventListener("click", function () {
   displayText = displayText + ".";
@@ -94,6 +97,7 @@ addButton.addEventListener("click", function () {
     secondNumber = Number(displayText);
 
     displayText = operate(operator, firstNumber, secondNumber);
+    runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
     firstNumber = Number(displayText);
@@ -110,6 +114,7 @@ minusButton.addEventListener("click", function () {
     secondNumber = Number(displayText);
 
     displayText = operate(operator, firstNumber, secondNumber);
+    runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
     firstNumber = Number(displayText);
@@ -126,6 +131,7 @@ multiplyButton.addEventListener("click", function () {
     secondNumber = Number(displayText);
 
     displayText = operate(operator, firstNumber, secondNumber);
+    runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
     firstNumber = Number(displayText);
@@ -142,6 +148,7 @@ divideButton.addEventListener("click", function () {
     secondNumber = Number(displayText);
 
     displayText = operate(operator, firstNumber, secondNumber);
+    runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
     firstNumber = Number(displayText);
@@ -150,17 +157,25 @@ divideButton.addEventListener("click", function () {
   }
 });
 posNegButton.addEventListener("click", function () {
+  displayText = String(runningTotal);
   if (displayText.charAt(0) == "-") {
     displayText = displayText.substring(1);
+    runningTotal = Number(displayText);
     text.textContent = displayText;
+    firstNumber = undefined;
   } else {
     displayText = "-" + displayText;
+    runningTotal = Number(displayText);
     text.textContent = displayText;
+    firstNumber = undefined;
   }
 });
 percentButton.addEventListener("click", function () {
+  displayText = String(runningTotal);
   displayText = displayText / 100;
+  runningTotal = Number(displayText);
   text.textContent = displayText;
+  firstNumber = undefined;
 });
 
 function add(a, b) {
@@ -191,7 +206,6 @@ function operate(sign, a, b) {
       return divide(a, b);
 
     default:
-      return null;
   }
 }
 console.log(operator);

@@ -44,14 +44,26 @@ body {
   height: 50px;
   border-radius: 50%;
   border: none;
+  background: #ddd;
+}
+.btn:hover {
+  background: #fff;
 }
 
 .btn--orange {
   background: orange;
 }
 
+.btn--orange:hover {
+  background: #ffd7b5;
+}
+
 .btn--red {
   background-color: rgb(243, 106, 106);
+}
+
+.btn--red:hover {
+  background: #fdb0c0;
 }
 
 .btn--0 {
