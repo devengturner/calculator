@@ -22,8 +22,9 @@ body {
   width: 250px;
   height: 400px;
   gap: 10px;
-  background-color: blue;
+  background-color: #3a9bdc;
   padding: 10px;
+  border-radius: 5px;
 }
 
 .screen {
@@ -44,9 +45,13 @@ body {
   height: 50px;
   border-radius: 50%;
   border: none;
-  background: #ddd;
+  background: #ccc;
+  font-size: 24px;
 }
 .btn:hover {
+  background: #eee;
+}
+.btn:active {
   background: #fff;
 }
 
@@ -58,6 +63,10 @@ body {
   background: #ffd7b5;
 }
 
+.btn--orange:active {
+  background: #fff;
+}
+
 .btn--red {
   background-color: rgb(243, 106, 106);
 }
@@ -66,7 +75,11 @@ body {
   background: #fdb0c0;
 }
 
+.btn--red:active {
+  background: #fff;
+}
+
 .btn--0 {
   width: 110px;
-  border-radius: 47%;
+  border-radius: 40%;
 }
