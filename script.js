@@ -1,5 +1,13 @@
 "use strict";
 
+function checkNumberOfDigits(num) {
+  const stringNum = String(num);
+  if (stringNum.length > 8) {
+    return Number(stringNum.substring(0, 8));
+  }
+  return num;
+}
+
 let firstNumber;
 let operator;
 let secondNumber;
@@ -27,6 +35,7 @@ const decButton = document.querySelector(".btn--dec");
 const equalsButton = document.querySelector(".btn--equal");
 const posNegButton = document.querySelector(".btn--plusminus");
 const percentButton = document.querySelector(".btn--percent");
+const backspaceButton = document.querySelector(".btn--backspace");
 
 zeroButton.addEventListener("click", function () {
   if (firstNumber != undefined && operator == undefined) {
@@ -158,7 +167,9 @@ clearButton.addEventListener("click", function () {
 equalsButton.addEventListener("click", function () {
   if (firstNumber && operator) {
     secondNumber = Number(displayText);
-    displayText = String(operate(operator, firstNumber, secondNumber));
+    displayText = checkNumberOfDigits(
+      operate(operator, firstNumber, secondNumber)
+    );
     runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
     firstNumber = Number(displayText);
@@ -173,6 +184,11 @@ decButton.addEventListener("click", function () {
     text.textContent = displayText;
   }
 });
+backspaceButton.addEventListener("click", function () {
+  displayText = displayText.substring(0, displayText.length - 1);
+  text.textContent = displayText;
+});
+
 addButton.addEventListener("click", function () {
   if (firstNumber == undefined) {
     firstNumber = Number(displayText);
@@ -185,7 +201,9 @@ addButton.addEventListener("click", function () {
   } else {
     secondNumber = Number(displayText);
 
-    displayText = operate(operator, firstNumber, secondNumber);
+    displayText = checkNumberOfDigits(
+      operate(operator, firstNumber, secondNumber)
+    );
     runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
@@ -207,7 +225,9 @@ minusButton.addEventListener("click", function () {
   } else {
     secondNumber = Number(displayText);
 
-    displayText = operate(operator, firstNumber, secondNumber);
+    displayText = checkNumberOfDigits(
+      operate(operator, firstNumber, secondNumber)
+    );
     runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
@@ -229,7 +249,9 @@ multiplyButton.addEventListener("click", function () {
   } else {
     secondNumber = Number(displayText);
 
-    displayText = operate(operator, firstNumber, secondNumber);
+    displayText = checkNumberOfDigits(
+      operate(operator, firstNumber, secondNumber)
+    );
     runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
@@ -251,7 +273,10 @@ divideButton.addEventListener("click", function () {
   } else {
     secondNumber = Number(displayText);
 
-    displayText = operate(operator, firstNumber, secondNumber);
+    displayText = checkNumberOfDigits(
+      operate(operator, firstNumber, secondNumber)
+    );
+    console.log(displayText);
     runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
 
@@ -276,7 +301,7 @@ posNegButton.addEventListener("click", function () {
 });
 percentButton.addEventListener("click", function () {
   if (displayText != "") {
-    displayText = displayText / 100;
+    displayText = round(displayText / 100);
     runningTotal = Number(displayText);
     text.textContent = displayText;
   }
@@ -312,3 +337,5 @@ function operate(sign, a, b) {
     default:
   }
 }
+
+console.log(123.456789 % 100000);

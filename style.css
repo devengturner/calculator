@@ -79,7 +79,13 @@ body {
   background: #fff;
 }
 
-.btn--0 {
-  width: 110px;
-  border-radius: 40%;
+.btn--backspace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  height: 30px;
+  width: 30px;
 }
