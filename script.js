@@ -38,7 +38,7 @@ const percentButton = document.querySelector(".btn--percent");
 const backspaceButton = document.querySelector(".btn--backspace");
 
 zeroButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -50,7 +50,7 @@ zeroButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 oneButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -62,7 +62,7 @@ oneButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 twoButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -74,7 +74,7 @@ twoButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 threeButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -86,7 +86,7 @@ threeButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 fourButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -98,7 +98,7 @@ fourButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 fiveButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -110,7 +110,7 @@ fiveButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 sixButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -122,7 +122,7 @@ sixButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 sevenButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -133,7 +133,7 @@ sevenButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 eightButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -145,7 +145,7 @@ eightButton.addEventListener("click", function () {
   text.textContent = displayText;
 });
 nineButton.addEventListener("click", function () {
-  if (firstNumber != undefined && operator == undefined) {
+  if (firstNumber !== undefined && operator == undefined) {
     firstNumber = undefined;
     operator = undefined;
     secondNumber = undefined;
@@ -165,11 +165,9 @@ clearButton.addEventListener("click", function () {
   decButton.disabled = false;
 });
 equalsButton.addEventListener("click", function () {
-  if (firstNumber && operator) {
+  if (firstNumber !== undefined && operator) {
     secondNumber = Number(displayText);
-    displayText = checkNumberOfDigits(
-      operate(operator, firstNumber, secondNumber)
-    );
+    displayText = operate(operator, firstNumber, secondNumber);
     runningTotal = operate(operator, firstNumber, secondNumber);
     text.textContent = displayText;
     firstNumber = Number(displayText);
@@ -185,12 +183,14 @@ decButton.addEventListener("click", function () {
   }
 });
 backspaceButton.addEventListener("click", function () {
-  displayText = displayText.substring(0, displayText.length - 1);
+  displayText = String(displayText).substring(0, displayText.length - 1);
   text.textContent = displayText;
 });
 
 addButton.addEventListener("click", function () {
-  if (firstNumber == undefined) {
+  if (displayText === "") return;
+
+  if (firstNumber === undefined) {
     firstNumber = Number(displayText);
     displayText = "";
     operator = "+";
@@ -214,7 +214,8 @@ addButton.addEventListener("click", function () {
   decButton.disabled = false;
 });
 minusButton.addEventListener("click", function () {
-  if (firstNumber == undefined) {
+  if (displayText === "") return;
+  if (firstNumber === undefined) {
     firstNumber = Number(displayText);
     displayText = "";
     operator = "-";
@@ -238,7 +239,8 @@ minusButton.addEventListener("click", function () {
   decButton.disabled = false;
 });
 multiplyButton.addEventListener("click", function () {
-  if (firstNumber == undefined) {
+  if (displayText === "") return;
+  if (firstNumber === undefined) {
     firstNumber = Number(displayText);
     displayText = "";
     operator = "*";
@@ -262,7 +264,10 @@ multiplyButton.addEventListener("click", function () {
   decButton.disabled = false;
 });
 divideButton.addEventListener("click", function () {
-  if (firstNumber == undefined) {
+  if (displayText === "") {
+    return;
+  }
+  if (firstNumber === undefined) {
     firstNumber = Number(displayText);
     displayText = "";
     operator = "/";
@@ -288,8 +293,8 @@ divideButton.addEventListener("click", function () {
 });
 posNegButton.addEventListener("click", function () {
   if (displayText != "") {
-    if (displayText.charAt(0) == "-") {
-      displayText = displayText.substring(1);
+    if (String(displayText).charAt(0) == "-") {
+      displayText = String(displayText).substring(1);
       runningTotal = Number(displayText);
       text.textContent = displayText;
     } else {
@@ -300,8 +305,8 @@ posNegButton.addEventListener("click", function () {
   }
 });
 percentButton.addEventListener("click", function () {
-  if (displayText != "") {
-    displayText = round(displayText / 100);
+  if (displayText != "" && String(displayText).length < 8) {
+    displayText = checkNumberOfDigits(displayText / 100);
     runningTotal = Number(displayText);
     text.textContent = displayText;
   }
@@ -337,5 +342,3 @@ function operate(sign, a, b) {
     default:
   }
 }
-
-console.log(123.456789 % 100000);
